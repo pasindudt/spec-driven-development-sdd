@@ -1,0 +1,23 @@
+ui:
+  theme:
+    mode: "dark"
+    primary: "#7c3aed"
+    background: "#0b1220"
+    text: "#e5e7eb"
+
+  behavior:
+    timeline:
+      default_active_step_id: "spec"
+      interaction:
+        - "Clicking a step button sets it active"
+        - "Active step content is visible; others hidden"
+    quiz:
+      interaction:
+        - "Selecting an option and submitting shows correct/incorrect"
+        - "Explanation text is shown after submission"
+        - "Retaking the quiz resets state"
+
+  accessibility:
+    - "All buttons have accessible names"
+    - "Timeline buttons use aria-selected"
+    - "Quiz feedback is announced via aria-live=polite"

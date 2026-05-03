@@ -1,0 +1,126 @@
+site:
+  title: "Spec Driven Development"
+  tagline: "From Vibe Coding to Agentic Engineering"
+  sections:
+    - id: hero
+      heading: "Spec Driven Development"
+      subheading: "From Vibe Coding to Agentic Engineering"
+      cta_primary:
+        text: "Start the timeline"
+        target: "#timeline"
+
+    - id: problem
+      heading: "The Problem"
+      content:
+        type: "comparison"
+        left:
+          title: "Vibe coding"
+          bullets:
+            - "Fast start"
+            - "Ambiguous requirements"
+            - "Hidden assumptions"
+            - "Bugs discovered late"
+        right:
+          title: "Spec-driven development"
+          bullets:
+            - "Clear contract"
+            - "Tests from specs"
+            - "Fewer assumptions"
+            - "Changes are explicit"
+
+    - id: timeline
+      heading: "How SDD works"
+      content:
+        type: "timeline"
+        steps:
+          - id: spec
+            title: "1. Write the spec"
+            body: "Define behavior, inputs/outputs, and edge cases. Ambiguity is a bug."
+          - id: tests
+            title: "2. Generate tests"
+            body: "Turn the spec into acceptance tests before implementing."
+          - id: implement
+            title: "3. Implement"
+            body: "Write the minimum code that satisfies the spec and passes tests."
+          - id: verify
+            title: "4. Verify"
+            body: "Run tests and review against the spec."
+          - id: iterate
+            title: "5. Iterate"
+            body: "Any behavior change starts as a spec change."
+
+    - id: principles
+      heading: "Core principles"
+      content:
+        type: "cards"
+        items:
+          - title: "Specs are the source of truth"
+            body: "If the code disagrees with the spec, the code is wrong (or the spec must be updated first)."
+          - title: "Tests enforce the spec"
+            body: "Tests are executable specifications: they prevent drift."
+          - title: "Explicit change control"
+            body: "A change is a spec diff; implementation follows."
+          - title: "Edge cases are first-class"
+            body: "Write them down early so agents don’t invent behavior." 
+          - title: "Determinism over vibes"
+            body: "Prefer clear contracts to clever guesses." 
+          - title: "Reviewable artifacts"
+            body: "Specs, tests, and code can be reviewed independently."
+
+    - id: quiz
+      heading: "Quiz"
+      content:
+        type: "quiz"
+        questions:
+          - id: q1
+            prompt: "In SDD, what should change first when behavior changes?"
+            options:
+              - "The implementation"
+              - "The prompt"
+              - "The spec"
+              - "The README"
+            answer_index: 2
+            explanation: "Specs are the source of truth; implementation follows the spec."
+          - id: q2
+            prompt: "Why is vibe coding risky with AI agents?"
+            options:
+              - "Agents run too fast"
+              - "Agents fill gaps with assumptions"
+              - "Agents refuse to code"
+              - "Agents only write tests"
+            answer_index: 1
+            explanation: "Ambiguity leads agents to invent behavior, creating bugs."
+
+    - id: examples
+      heading: "Spec examples"
+      content:
+        type: "examples"
+        items:
+          - title: "YAML (information architecture)"
+            language: "yaml"
+            code: |
+              site:
+                title: "Spec Driven Development"
+                sections:
+                  - id: timeline
+                    heading: "How SDD works"
+          - title: "Markdown (product goals)"
+            language: "markdown"
+            code: |
+              ## Goals
+              - Explain vibe coding failure modes
+              - Teach an SDD workflow
+          - title: "TypeScript (contract)"
+            language: "ts"
+            code: |
+              export type TimelineStep = {
+                id: 'spec'|'tests'|'implement'|'verify'|'iterate'
+                title: string
+                body: string
+              }
+
+    - id: footer
+      heading: ""
+      content:
+        type: "footer"
+        text: "MIT"

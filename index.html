@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spec Driven Development</title>
+    <style>
+      :root {
+        --bg: #0b1220;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --primary: #7c3aed;
+        --card: #111a2e;
+        --border: rgba(255, 255, 255, 0.08);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+      }
+      a { color: var(--text); }
+      .container { max-width: 980px; margin: 0 auto; padding: 28px 18px; }
+      header { padding: 48px 0 18px; }
+      h1 { font-size: 44px; margin: 0 0 10px; }
+      .tagline { color: var(--muted); font-size: 18px; margin: 0 0 22px; }
+      .btn {
+        display: inline-block;
+        border: 1px solid var(--border);
+        background: rgba(124, 58, 237, 0.15);
+        color: var(--text);
+        padding: 10px 14px;
+        border-radius: 10px;
+        text-decoration: none;
+      }
+      section { padding: 26px 0; border-top: 1px solid var(--border); }
+      section:first-of-type { border-top: none; }
+      h2 { font-size: 26px; margin: 0 0 14px; }
+
+      .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px; }
+      .card h3 { margin: 0 0 10px; }
+      ul { margin: 0; padding-left: 18px; color: var(--muted); }
+
+      .timeline {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 14px;
+      }
+      .timeline .steps { display: flex; flex-direction: column; gap: 10px; }
+      .step-btn {
+        text-align: left;
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px 12px;
+        color: var(--text);
+        cursor: pointer;
+      }
+      .step-btn[aria-selected="true"] {
+        border-color: rgba(124, 58, 237, 0.65);
+        background: rgba(124, 58, 237, 0.18);
+      }
+      .panel { display: none; }
+      .panel[aria-hidden="false"] { display: block; }
+      .muted { color: var(--muted); }
+
+      .quiz .options { display: grid; gap: 10px; margin: 12px 0; }
+      .option {
+        padding: 10px 12px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        cursor: pointer;
+        user-select: none;
+      }
+      .option[data-selected="true"] { border-color: rgba(124, 58, 237, 0.65); }
+      .feedback { margin-top: 10px; }
+      pre { background: #0a1020; border: 1px solid var(--border); border-radius: 14px; padding: 12px; overflow: auto; }
+      code { color: #d1d5db; }
+
+      @media (max-width: 760px) {
+        .grid2 { grid-template-columns: 1fr; }
+        .timeline { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header id="hero">
+        <h1>Spec Driven Development</h1>
+        <p class="tagline">From Vibe Coding to Agentic Engineering</p>
+        <a class="btn" href="#timeline">Start the timeline</a>
+      </header>
+
+      <section id="problem">
+        <h2>The Problem</h2>
+        <div class="grid2">
+          <div class="card">
+            <h3>Vibe coding</h3>
+            <ul>
+              <li>Fast start</li>
+              <li>Ambiguous requirements</li>
+              <li>Hidden assumptions</li>
+              <li>Bugs discovered late</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Spec-driven development</h3>
+            <ul>
+              <li>Clear contract</li>
+              <li>Tests from specs</li>
+              <li>Fewer assumptions</li>
+              <li>Changes are explicit</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="timeline">
+        <h2>How SDD works</h2>
+        <div class="timeline">
+          <div class="steps" aria-label="SDD timeline">
+            <button class="step-btn" data-testid="timeline-step-btn" data-step-id="spec" aria-selected="true">1. Write the spec</button>
+            <button class="step-btn" data-testid="timeline-step-btn" data-step-id="tests" aria-selected="false">2. Generate tests</button>
+            <button class="step-btn" data-testid="timeline-step-btn" data-step-id="implement" aria-selected="false">3. Implement</button>
+            <button class="step-btn" data-testid="timeline-step-btn" data-step-id="verify" aria-selected="false">4. Verify</button>
+            <button class="step-btn" data-testid="timeline-step-btn" data-step-id="iterate" aria-selected="false">5. Iterate</button>
+          </div>
+          <div class="card">
+            <div class="panel" data-testid="timeline-step-panel" data-step-id="spec" aria-hidden="false">
+              <h3>1. Write the spec</h3>
+              <p class="muted">Define behavior, inputs/outputs, and edge cases. Ambiguity is a bug.</p>
+            </div>
+            <div class="panel" data-testid="timeline-step-panel" data-step-id="tests" aria-hidden="true">
+              <h3>2. Generate tests</h3>
+              <p class="muted">Turn the spec into acceptance tests before implementing.</p>
+            </div>
+            <div class="panel" data-testid="timeline-step-panel" data-step-id="implement" aria-hidden="true">
+              <h3>3. Implement</h3>
+              <p class="muted">Write the minimum code that satisfies the spec and passes tests.</p>
+            </div>
+            <div class="panel" data-testid="timeline-step-panel" data-step-id="verify" aria-hidden="true">
+              <h3>4. Verify</h3>
+              <p class="muted">Run tests and review against the spec.</p>
+            </div>
+            <div class="panel" data-testid="timeline-step-panel" data-step-id="iterate" aria-hidden="true">
+              <h3>5. Iterate</h3>
+              <p class="muted">Any behavior change starts as a spec change.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="principles">
+        <h2>Core principles</h2>
+        <div class="grid2">
+          <div class="card"><h3>Specs are the source of truth</h3><p class="muted">If the code disagrees with the spec, the code is wrong (or the spec must be updated first).</p></div>
+          <div class="card"><h3>Tests enforce the spec</h3><p class="muted">Tests are executable specifications: they prevent drift.</p></div>
+          <div class="card"><h3>Explicit change control</h3><p class="muted">A change is a spec diff; implementation follows.</p></div>
+          <div class="card"><h3>Edge cases are first-class</h3><p class="muted">Write them down early so agents dont invent behavior.</p></div>
+          <div class="card"><h3>Determinism over vibes</h3><p class="muted">Prefer clear contracts to clever guesses.</p></div>
+          <div class="card"><h3>Reviewable artifacts</h3><p class="muted">Specs, tests, and code can be reviewed independently.</p></div>
+        </div>
+      </section>
+
+      <section id="quiz" class="quiz">
+        <h2>Quiz</h2>
+        <div class="card">
+          <h3>Q1. In SDD, what should change first when behavior changes?</h3>
+          <div class="options" role="radiogroup" aria-label="Quiz question 1">
+            <div class="option" data-testid="quiz-q1-option" data-option-index="0" role="radio" tabindex="0" aria-checked="false">The implementation</div>
+            <div class="option" data-testid="quiz-q1-option" data-option-index="1" role="radio" tabindex="0" aria-checked="false">The prompt</div>
+            <div class="option" data-testid="quiz-q1-option" data-option-index="2" role="radio" tabindex="0" aria-checked="false">The spec</div>
+            <div class="option" data-testid="quiz-q1-option" data-option-index="3" role="radio" tabindex="0" aria-checked="false">The README</div>
+          </div>
+          <button class="btn" id="quiz-submit">Submit</button>
+          <button class="btn" id="quiz-reset" style="margin-left: 8px">Retake</button>
+          <div class="feedback" aria-live="polite">
+            <div data-testid="quiz-feedback" id="quiz-feedback"></div>
+            <div data-testid="quiz-explanation" id="quiz-explanation" class="muted"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="examples">
+        <h2>Spec examples</h2>
+        <div class="card">
+          <h3>YAML (information architecture)</h3>
+          <pre><code>site:
+  title: "Spec Driven Development"
+  sections:
+    - id: timeline
+      heading: "How SDD works"</code></pre>
+        </div>
+        <div class="card" style="margin-top: 12px">
+          <h3>Markdown (product goals)</h3>
+          <pre><code>## Goals
+- Explain vibe coding failure modes
+- Teach an SDD workflow</code></pre>
+        </div>
+        <div class="card" style="margin-top: 12px">
+          <h3>TypeScript (contract)</h3>
+          <pre><code>export type TimelineStep = {
+  id: 'spec'|'tests'|'implement'|'verify'|'iterate'
+  title: string
+  body: string
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="footer">
+        <p class="muted">MIT</p>
+      </section>
+    </div>
+
+    <script>
+      // Timeline behavior (as per spec/ui.yml)
+      (function () {
+        const buttons = Array.from(document.querySelectorAll('[data-testid="timeline-step-btn"]'));
+        const panels = Array.from(document.querySelectorAll('[data-testid="timeline-step-panel"]'));
+
+        function setActive(stepId) {
+          buttons.forEach(btn => {
+            const isActive = btn.getAttribute('data-step-id') === stepId;
+            btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          });
+          panels.forEach(panel => {
+            const isActive = panel.getAttribute('data-step-id') === stepId;
+            panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+          });
+        }
+
+        buttons.forEach(btn => {
+          btn.addEventListener('click', () => setActive(btn.getAttribute('data-step-id')));
+        });
+
+        // default is spec; already set in markup
+      })();
+
+      // Quiz behavior (minimal implementation for Q1)
+      (function () {
+        const options = Array.from(document.querySelectorAll('[data-testid="quiz-q1-option"]'));
+        const submit = document.getElementById('quiz-submit');
+        const reset = document.getElementById('quiz-reset');
+        const feedback = document.getElementById('quiz-feedback');
+        const explanation = document.getElementById('quiz-explanation');
+
+        const correctIndex = 2;
+        const explanationText = 'Specs are the source of truth; implementation follows the spec.';
+        let selectedIndex = null;
+
+        function renderSelection() {
+          options.forEach(opt => {
+            const idx = Number(opt.getAttribute('data-option-index'));
+            const selected = selectedIndex === idx;
+            opt.dataset.selected = selected ? 'true' : 'false';
+            opt.setAttribute('aria-checked', selected ? 'true' : 'false');
+          });
+        }
+
+        function pick(idx) {
+          selectedIndex = idx;
+          renderSelection();
+        }
+
+        options.forEach(opt => {
+          opt.addEventListener('click', () => pick(Number(opt.getAttribute('data-option-index'))));
+          opt.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              pick(Number(opt.getAttribute('data-option-index')));
+            }
+          });
+        });
+
+        submit.addEventListener('click', () => {
+          if (selectedIndex === null) {
+            feedback.textContent = 'Pick an option first.';
+            explanation.textContent = '';
+            return;
+          }
+          const ok = selectedIndex === correctIndex;
+          feedback.textContent = ok ? 'Correct.' : 'Incorrect.';
+          explanation.textContent = explanationText;
+        });
+
+        reset.addEventListener('click', () => {
+          selectedIndex = null;
+          renderSelection();
+          feedback.textContent = '';
+          explanation.textContent = '';
+        });
+
+        renderSelection();
+      })();
+    </script>
+  </body>
+</html>
